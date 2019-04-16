@@ -1,10 +1,6 @@
 ({
     createExpense: function(component, expense) {
-        var action = component.get("c.saveExpense");
-        action.setParams({
-            "expense": expense
-        });
-        action.setCallback(this, function(response){
+        this.saveExpense(component, expense, function(response){
             var state = response.getState();
             if (state === "SUCCESS") {
                 var expenses = component.get("v.expenses");
@@ -12,6 +8,8 @@
                 component.set("v.expenses", expenses);
             }
         });
-        $A.enqueueAction(action);
+    },
+    updateExpense: function(component, expense) {
+        this.saveExpense(component, expense);
     }
 })
